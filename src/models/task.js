@@ -13,12 +13,11 @@ const taskSchema = new mongoose.Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: 'User'
+        ref: 'User' // model name same in user.model
     }
 }, {
     timestamps: true
 })
-
 
 const Task = mongoose.model('Task', taskSchema);
 

@@ -24,7 +24,7 @@ myFunction();
 
 // eyJfaWQiOiJhYmMxMjM0NSIsImlhdCI6MTU4MjYxMzU1M30 --> payload/body
 //  -> base64 encoded json string 
-// it contains data that provided
+// it contains data that we provided
 
 // reFxBPm_rzGwTk9eIq2Nf8SYU813Uvqrpw9DAf9bUmQ --> signature
 // this is used to verify token 

@@ -22,7 +22,8 @@ router.post('/users/login', async (req, res) => {
         res.send({ user, token });
         // res.send({ user: user.getPublicProfile(), token });
     } catch (error) {
-        res.status(400).send();
+        // console.log(error); 
+        res.status(400).send({ error: error });
     }
 })
 
@@ -52,7 +53,7 @@ router.post('/users/logoutAll', auth, async (req, res) => {
 router.get('/users', auth, async (req, res) => {
     try {
         const users = await User.find({});
-        res.status(201).send(users);
+        res.status(200).send(users);
     } catch (error) {
         res.status(400).send(error)
     }
@@ -94,10 +95,6 @@ router.delete('/users/me', auth, async (req, res) => {
 module.exports = router;
 
 
-
-
-
-
 // router.get('/users/:id', async (req, res) => {
 //     const _id = req.params.id;
 //     try {
@@ -122,9 +119,11 @@ module.exports = router;
 //     }
 //     const _id = req.params.id;
 //     try {
-//         // const user = await User.findByIdAndUpdate(_id, req.body, { new: true, runValidators: true });
-//         // findByIdAndUpdate bypasses mangoose,it perfomace a direct operation on db,that's why we event have to set a options for running a validator
-//         // here middleware is not going to be called due to findByIdAndUpdate; so we will need to update 
+        // const user = await User.findByIdAndUpdate(_id, req.body, { new: true, runValidators: true });
+        // findByIdAndUpdate bypasses mangoose,it perfomace a direct operation on db,that's why we event 
+        // have to set a options for running a validator
+        // here middleware is not going to be called due to findByIdAndUpdate; so we will need to update 
+
 //         const user = await User.findById(_id);
 //         updates.forEach(update => user[update] = req.body[update]);
 //         await user.save()

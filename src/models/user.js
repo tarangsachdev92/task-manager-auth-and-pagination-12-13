@@ -63,6 +63,14 @@ userSchema.virtual('tasks', {
     foreignField: 'owner' // name of the field on the other thing(task model)
 })
 
+// userSchema.methods.getPublicProfile = function () {
+//     const user = this;
+//     const userObject = user.toObject();
+//     delete userObject.password;
+//     delete userObject.tokens;
+//     return userObject;
+// }
+
 // this methods is accessible on object(instances), it sometime called instancemethods
 userSchema.methods.generateAuthToken = async function () {
     const user = this;
@@ -72,7 +80,6 @@ userSchema.methods.generateAuthToken = async function () {
     return token;
 }
 
-// 
 userSchema.methods.toJSON = function () {
     const user = this;
     const userObject = user.toObject();
@@ -81,6 +88,7 @@ userSchema.methods.toJSON = function () {
     return userObject;
 }
 
+// statucs can be used on Model Directly
 userSchema.statics.findByCredentials = async (email, password) => {
     const user = await User.findOne({ email });
     if (!user) {
@@ -112,7 +120,8 @@ userSchema.pre('save', async function (next) {
 
 userSchema.pre('remove', async function (next) {
     const user = this;
-    await Task.deleteMany({ owner: user._id });
+    const deletedTasks = await Task.deleteMany({ owner: user._id });
+    console.log(deletedTasks);
     next();
 })
 
